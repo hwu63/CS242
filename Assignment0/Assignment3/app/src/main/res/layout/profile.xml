@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="@drawable/profile_background_2">
+
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="102dp"
+        android:layout_height="92dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="10dp"
+        app:srcCompat="@drawable/landscape" />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_image"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/profile_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="18sp"
+        android:layout_marginTop="22dp"
+        android:layout_below="@+id/profile_name"
+        android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/email"
+            android:layout_below="@+id/profile_description"
+            android:layout_alignLeft="@+id/profile_moreinfo"
+            android:layout_alignStart="@+id/profile_moreinfo"
+            android:layout_marginLeft="41dp"
+            android:layout_marginStart="41dp" />
+
+        <TextView
+            android:id="@+id/profile_text_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_alignTop="@+id/profile_email"
+            android:layout_toRightOf="@+id/profile_email"
+            android:layout_toEndOf="@+id/profile_email" />
+
+
+
+    <!--android:onClick="ProfileWeb"-->
+    <Button
+        android:id="@+id/profile_moreinfo"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More Profile >>"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_above="@+id/profile_repos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+    <!--android:onClick="changeToFollowPage"-->
+    <Button
+        android:id="@+id/profile_followers"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Follower >>"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginRight="41dp"
+        android:layout_marginEnd="41dp"
+        android:layout_alignBaseline="@+id/profile_moreinfo"
+        android:layout_alignBottom="@+id/profile_moreinfo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <!--android:onClick="changeToFollowingPage"-->
+    <Button
+        android:id="@+id/profile_following"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Following >>"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/profile_followers"
+        android:layout_alignLeft="@+id/profile_followers"
+        android:layout_alignStart="@+id/profile_followers" />
+
+
+    <!--android:onClick="changeToRepoPage"-->
+    <Button
+        android:id="@+id/profile_repos"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="49dp"
+        android:background="@android:color/white"
+        android:text="Repositories >>"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_above="@+id/textView4"
+        android:layout_alignRight="@+id/profile_moreinfo"
+        android:layout_alignEnd="@+id/profile_moreinfo"
+        android:layout_alignLeft="@+id/profile_moreinfo"
+        android:layout_alignStart="@+id/profile_moreinfo" />
+
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/profile_repos"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/profile_repos"
+        android:layout_marginBottom="15dp"
+        android:text="Created on 10/22/2017"
+        android:textSize="14sp" />
+
+</RelativeLayout>

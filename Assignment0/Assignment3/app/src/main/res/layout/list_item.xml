@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+
+    <Button
+        android:id="@+id/list_item_name"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:layout_toStartOf="@+id/imageButton2"
+        android:layout_toLeftOf="@+id/imageButton2"
+        android:layout_above="@+id/list_item_description" />
+
+    <Button
+        android:id="@+id/list_item_username"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textAlignment="textStart"
+        android:textAllCaps="false" />
+
+
+    <Button
+        android:id="@+id/list_item_description"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/list_item_username"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/list_item_btn"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/list_item_description"
+        android:background="@android:color/holo_green_light"
+        android:text="Show in Github"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/list_item_space"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/list_item_btn"
+        android:layout_toStartOf="@+id/list_item_username"
+        android:text="Button"
+        android:textAllCaps="false" />
+
+    <ToggleButton
+        android:id="@+id/list_item_toggle"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/list_item_description"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/list_item_username"
+        android:text="ToggleButton"
+        android:textAllCaps="false"
+        android:textOff="Star"
+        android:textOn="Unstar" />
+
+</RelativeLayout>

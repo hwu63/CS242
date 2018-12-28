@@ -1,0 +1,53 @@
+public class Bishop extends Piece {
+
+    private boolean alive;
+    private Player player;
+    private String name;
+
+    public Bishop(Player player) {
+        this.player = player;
+        this.alive = true;
+        name = "B";
+    }
+
+    @Override
+    public String getName(){
+        return name;
+    }
+
+    public boolean check_valid_move(Piece[][] spots, int srcX, int srcY, int destX, int destY) {
+
+        //not diagonal
+        if (Math.abs(destX - srcX) != Math.abs(destY - srcY)) {
+            return false;
+        }
+
+        //check leap over
+        //vars for easier loop
+        int stepX, stepY;
+
+        if (srcX < destX)
+            stepX = 1;
+        else
+            stepX = -1;
+
+
+        if (srcY < destY)
+            stepY = 1;
+        else
+            stepY = -1;
+
+        int j = srcY + stepY;
+        for(int i = srcX + stepX; i != destX; i += stepX){
+
+                if(spots[i][j] != null)
+                    return false;
+
+                j += stepY;
+
+        }
+
+        return true;
+
+    }
+}

@@ -1,0 +1,196 @@
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Board {
+    private Piece [][] spots = new Piece [8][8];
+    private int[] whitelist = new int[16];
+    private int[] blacklist = new int[16];
+    private Map<Player, Integer> KingPos = new HashMap<Player, Integer>();
+    private int[] checkingPiece_W = new int[16];
+    private int[] checkingPiece_B = new int[16];
+
+    public Board(Player white, Player black){
+
+        //initializing grids and lists
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(i == 0)
+                    whitelist[j] = i*10+j;
+
+                if(i == 7)
+                    blacklist[j+8] = i*10+j;
+
+                if(i == 1){
+                    spots[i][j] = new Pawn(white);
+                    whitelist[j+8] = i*10+j;
+
+                } else if (i == 6){
+                    spots[i][j] = new Pawn(black);
+                    blacklist[j] = i*10+j;
+
+                } else
+                    this.spots[i][j] = null;
+
+            }
+        }
+
+        //Rook
+        spots[0][0] = new Rook(white);
+        spots[0][7] = new Rook(white);
+        spots[7][0] = new Rook(black);
+        spots[7][7] = new Rook(black);
+
+        //Bishop
+        spots[0][2] = new Bishop(white);
+        spots[0][5] = new Bishop(white);
+        spots[7][2] = new Bishop(black);
+        spots[7][5] = new Bishop(black);
+
+        //Knight
+        spots[0][1] = new Knight(white);
+        spots[0][6] = new Knight(white);
+        spots[7][1] = new Knight(black);
+        spots[7][6] = new Knight(black);
+
+        //Queen
+        spots[0][3] = new Queen(white);
+        spots[7][3] = new Queen(black);
+
+        //King
+        spots[0][4] = new King(white);
+        spots[7][4] = new King(black);
+        KingPos.put(white, 04);
+        KingPos.put(black, 74);
+    }
+
+    public Piece[][] getspots(){
+        return spots;
+    }
+
+    public Integer getKingPos(Player player){
+        return KingPos.get(player);
+    }
+
+    public int[] getplayerlist(Player player){
+        if(player.IsWhite()){
+            return whitelist;
+        }else{
+            return blacklist;
+        }
+    }
+
+    public int[] getCheckingPiece(Player player){
+        if(player.IsWhite()){
+            return checkingPiece_B;
+        }else{
+            return checkingPiece_W;
+        }
+    }
+
+    public boolean inCheck(Player player){
+        int kingX = KingPos.get(player)/10;
+        int kingY = KingPos.get(player)%10;
+
+        if(player.IsWhite()){
+           return LoopForInCheck(kingX, kingY, blacklist, checkingPiece_W);
+        }else{
+            return LoopForInCheck(kingX, kingY, whitelist, checkingPiece_B);
+        }
+    }
+
+
+
+    private boolean LoopForInCheck(int kingX, int kingY, int[] pieceList, int[] checkingPiece) {
+        int other_pieceX;
+        int other_pieceY;
+        boolean ret = false;
+
+        int counter = 0;
+        for(int i = 0; i < 16; i++){
+            if(pieceList[i] >= 0){
+                other_pieceX = pieceList[i]/10;
+                other_pieceY = pieceList[i]%10;
+
+                if(spots[other_pieceX][other_pieceY].check_valid_move(spots,
+                            other_pieceX, other_pieceY, kingX, kingY)){
+                    ret =  true;
+                    //save to checking piece list
+                    checkingPiece[counter++] = pieceList[i];
+                }
+            }
+        }
+        return ret;
+    }
+
+    public void move(int[] positions, Player player) throws IOException{
+        int srcX = positions[0];
+        int srcY = positions[1];
+        int destX = positions[2];
+        int destY = positions[3];
+
+        //invalid moves
+        if(spots[srcX][srcY] == null ||
+                spots[srcX][srcY].getPlayer() != player ||
+                (spots[destX][destY] != null && spots[destX][destY].getPlayer() == player) ){
+            throw new IOException();
+        }
+
+
+        boolean actuallyMove = spots[srcX][srcY].check_valid_move(spots, srcX, srcY, destX, destY);
+
+        if(!actuallyMove){
+            //Invalid move
+            throw new IOException();
+        }
+        else{
+            //Valid move
+            spots[destX][destY] = spots[srcX][srcY];
+            spots[srcX][srcY] = null;
+
+            //if is Pawn
+            if(spots[destX][destY].getName().equals("P")){
+                spots[destX][destY].setFirst_move(false);
+            }
+
+            if(player.IsWhite()) {
+                for (int i = 0; i < whitelist.length; i++) {
+                    if (whitelist[i] == srcX*10 + srcY){
+                       whitelist[i] = destX*10 + destY;
+                       break;
+                    }
+                }
+            }else{
+                for (int i = 0; i < blacklist.length; i++) {
+                    if (blacklist[i] == srcX*10 + srcY){
+                        blacklist[i] = destX*10 + destY;
+                        break;
+                    }
+                }
+            }
+
+            //ate pieces
+            if(spots[destX][destY] != null){
+                if(!player.IsWhite()) {
+                    for (int i = 0; i < whitelist.length; i++) {
+                        if (whitelist[i] == destX*10 + destY){
+                            whitelist[i] = -1;
+                            break;
+                        }
+                    }
+                }else{
+                    for (int i = 0; i < blacklist.length; i++) {
+                        if (blacklist[i] == destX*10 + destY){
+                            blacklist[i] = -1;
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+
+}

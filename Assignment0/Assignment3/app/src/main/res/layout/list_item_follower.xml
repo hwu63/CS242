@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <!--ImageView textViewItemAvatar = (ImageView)-->
+    <!--convertView.findViewById(R.id.list_item_follower_avatar);-->
+
+    <TableRow
+        android:id="@+id/list_item_follower_space"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:padding="5dip">
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/list_item_follower_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/list_item_follower_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            app:srcCompat="@drawable/profile" />
+
+        <Button
+            android:id="@+id/list_item_follower_username"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:background="@android:color/white"
+            android:textAlignment="viewStart"
+            android:textAllCaps="false"
+            android:textSize="22sp"
+            android:typeface="normal" />
+
+        <ImageButton
+            android:id="@+id/list_item_follower_follow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            app:srcCompat="@drawable/add" />
+
+        <ImageButton
+            android:id="@+id/list_item_follower_unfollow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            app:srcCompat="@drawable/minus" />
+
+    </TableRow>
+
+    <TableRow
+            android:id="@+id/list_item_follower_space"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:padding="5dip" >
+
+    </TableRow>
+
+</TableLayout>

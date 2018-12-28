@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_follow"
+            android:icon="@drawable/follow"
+            android:title="Follow" />
+        <item
+            android:id="@+id/nav_following"
+            android:icon="@drawable/following"
+            android:title="Following" />
+        <item
+            android:id="@+id/nav_repository"
+            android:icon="@drawable/about"
+            android:title="Repository" />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/bell"
+            android:title="Notification" />
+        <item
+            android:id="@+id/nav_visualization"
+            android:icon="@drawable/visual"
+            android:title="Visualiztion" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_login"
+                android:icon="@drawable/github"
+                android:title="Login" />
+        </menu>
+    </item>
+
+</menu>

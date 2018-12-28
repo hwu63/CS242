@@ -1,0 +1,24 @@
+public abstract class Piece {
+
+    private boolean alive;
+    private Player player;
+    private String name;
+    private boolean first_move;
+
+    public Player getPlayer(){
+        return this.player;
+    }
+
+    public void setAlive(boolean alive){
+        this.alive = alive;
+    }
+
+    public abstract String getName();
+
+    public void setFirst_move(boolean first_move){
+        this.first_move = first_move;
+    }
+
+    public abstract boolean check_valid_move(Piece [][] spots, int srcX, int srcY, int destX, int destY);
+
+}

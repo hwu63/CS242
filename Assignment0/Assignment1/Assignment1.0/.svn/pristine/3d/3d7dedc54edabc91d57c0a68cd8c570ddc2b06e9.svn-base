@@ -1,0 +1,23 @@
+public class Queen extends Piece {
+
+    private boolean alive;
+    private Player player;
+    private String name;
+
+    public Queen(Player player) {
+        this.player = player;
+        this.alive = true;
+        name = "Q";
+    }
+
+    @Override
+    public String getName(){
+        return name;
+    }
+
+    public boolean check_valid_move(Piece[][] spots, int srcX, int srcY, int destX, int destY) {
+
+        return new Rook(player).check_valid_move(spots, srcX, srcY, destX, destY)
+                || new Bishop(player).check_valid_move(spots, srcX, srcY, destX, destY);
+    }
+}

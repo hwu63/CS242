@@ -1,0 +1,58 @@
+[
+    {
+        "blablablbalblbla": {
+            "actors": [],
+            "class": "Movie",
+            "year": 1800,
+            "title": "blablablbalblbla",
+            "gross": 0
+        },
+        "heihiehiehiehihei": {
+            "actors": [
+                "Quinton_Aaron"
+            ],
+            "class": "Movie",
+            "year": 1950,
+            "title": "heihiehiehiehihei",
+            "gross": 4000
+        },
+        "kalklaklaklaklakla": {
+            "actors": [
+                "Willie_Aames",
+                "Quinton_Aaron"
+            ],
+            "class": "Movie",
+            "year": 2000,
+            "title": "kalklaklaklaklakla",
+            "gross": 1000000
+        }
+    },
+    {
+        "aha": {
+            "name": "aha",
+            "class": "Actor",
+            "movies": [],
+            "age": -1,
+            "total_gross": 0
+        },
+        "Quinton_Aaron": {
+            "name": "Quinton_Aaron",
+            "class": "Actor",
+            "movies": [
+                "kalklaklaklaklakla",
+                "heihiehiehiehihei"
+            ],
+            "age": 100,
+            "total_gross": 0
+        },
+        "Willie_Aames": {
+            "name": "Willie_Aames",
+            "class": "Actor",
+            "movies": [
+                "kalklaklaklaklakla"
+            ],
+            "age": 90,
+            "total_gross": 0
+        }
+    }
+]

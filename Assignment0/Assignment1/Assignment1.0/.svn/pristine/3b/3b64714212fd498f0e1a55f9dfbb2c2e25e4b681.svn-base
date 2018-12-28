@@ -1,0 +1,55 @@
+public class Rook extends Piece {
+
+    private boolean alive;
+    private Player player;
+    private String name;
+
+    public Rook(Player player){
+        this.player = player;
+        this.alive = true;
+        name = "R";
+    }
+
+    @Override
+    public String getName(){
+        return name;
+    }
+
+    public boolean check_valid_move(Piece[][] spots, int srcX, int srcY, int destX, int destY){
+
+        //check straight
+        if(srcX != destX && srcY != destY){
+            return false;
+        }
+
+        int step;//for loop
+        if(srcX == destX){
+            //check horizontally if there is piece
+
+            if(srcY < destY)
+                step = 1;
+            else
+                step = -1;
+
+            for(int i = srcY + step; i != destY; i += step){
+                if(spots[destX][i] != null)
+                    return false;
+            }
+        }else{
+            //check vertically if there is piece
+
+            if(srcX < destX)
+                step = 1;
+            else
+                step = -1;
+
+            for(int i = srcX + step; i != destX; i += step){
+                if(spots[destY][i] != null)
+                    return false;
+            }
+
+        }
+
+        return true;
+    }
+}

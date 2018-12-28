@@ -1,0 +1,34 @@
+public class Knight extends Piece {
+
+    private boolean alive;
+    private Player player;
+    private String name;
+
+    public Knight(Player player){
+        this.player = player;
+        this.alive = true;
+        name = "N";
+    }
+
+    @Override
+    public String getName(){
+        return name;
+    }
+
+    public boolean check_valid_move(Piece[][] spots, int srcX, int srcY, int destX, int destY){
+        int stepX = Math.abs(destX - srcX);
+        int stepY = Math.abs(destY - srcY);
+
+        if( stepX == 2 && stepY == 1 ){
+            return true;
+        }
+
+        else if( stepX == 1 && stepY == 2 ){
+            return true;
+        }
+
+        return false;
+    }
+
+
+}

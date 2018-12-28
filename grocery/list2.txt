@@ -1,5 +1,0 @@
-tomatoes
-celery
-potatos
-cucumber
-lettuce

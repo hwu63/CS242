@@ -1,0 +1,342 @@
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Test {
+
+    public static void main(String[] args) throws IOException {
+
+        //initializing players
+        Player white = new Player("White");
+        Player black = new Player("Black");
+
+        Board board = new Board(white, black);
+        Scanner scanner = new Scanner(System.in);
+
+        int[] positions = new int[4];
+        Piece[][] spots = board.getspots();
+
+        System.out.println("Hello! Welcome to the chess board. A new game has been started.\n");
+
+        printBoard(spots);
+
+        boolean whiteWin = false,
+                blackWin = false,
+                draw = false;
+        String player1 = "Player1, ";
+        String player2 = "Player2, ";
+        String name = player1;
+        Player player = white;
+
+        while (!whiteWin && !blackWin && !draw) {
+            System.out.print(name);
+            MoveCommand(scanner, positions);
+            board.move(positions, player);
+
+            printBoard(spots);
+
+            whiteWin = inCheckmate(board, black);
+            blackWin = inCheckmate(board, white);
+            draw = inStalemate(board, white) || inStalemate(board, black);
+
+            if(player.IsWhite()){
+                name = player2;
+                player = black;
+            }else{
+                name = player1;
+                player = white;
+            }
+        }
+
+        if(blackWin){
+            System.out.print("Congratulations! Player2 won!");
+        }else if(whiteWin){
+            System.out.print("Congratulations! Player1 won!");
+        }else{
+            System.out.print("Game over! Draw!");
+        }
+
+
+    }
+
+    private static void MoveCommand(Scanner scanner, int[] positions) {
+        System.out.println("What piece would you like to move? Please enter the X-axis of it.(1-8)");
+        getPosition(scanner, positions, 0, "X");
+
+        System.out.println("Please enter Y-axis of it. (1-8)");
+        getPosition(scanner, positions, 1, "Y");
+
+        System.out.println("What is the X-axis of the destination.(1-8)");
+        getPosition(scanner, positions, 2, "X");
+
+        System.out.println("Please enter Y-axis of the destination. (1-8)");
+        getPosition(scanner, positions, 3, "Y");
+    }
+
+    private static void getPosition(Scanner scanner, int[] positions, int i, String axis) {
+        positions[i] = scanner.nextInt();
+        while(positions[i]>8 || positions[i]<1){
+            System.out.println("Invalid "+axis+"-axis.Please re-enter.");
+            positions[i] = scanner.nextInt();
+        }
+    }
+
+    private static void printBoard(Piece[][] spots) {
+        for(int i=0; i<8; i++){
+            for(int j=0; j<8; j++){
+                if(spots[i][j] == null)
+                    System.out.print("_ ");
+                else
+                    System.out.print(spots[i][j].getName()+" ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static boolean inCheckmate(Board board, Player player){
+        if (board.inCheck(player)) {
+            return false;
+        }
+
+        try {
+            return !resolveCheck(player, board, board.getplayerlist(player), board.getCheckingPiece(player));
+        } catch (IOException e){
+            //do nothing
+        }
+
+        return false;
+    }
+
+    private static boolean resolveCheck(Player player, Board board, int[] pieceList, int[] checkingPiece) throws IOException {
+
+        Board copy_board = board;
+        Piece[][] spots = copy_board.getspots();
+        int[] positions = new int[4];
+
+        //try eat threatening piece to resolve checkmate
+        for (int aCheckingPiece1 : checkingPiece) {
+            for (int aPieceList : pieceList) {
+
+                positions[0] = aPieceList / 10; //my x
+                positions[1] = aPieceList % 10; //my y
+
+                positions[2] = aCheckingPiece1 / 10; // threatening piece x
+                positions[3] = aCheckingPiece1 % 10; // threatening piece y
+
+                if (spots[positions[0]][positions[1]].check_valid_move(spots,
+                        positions[0], positions[1], positions[2], positions[3]))
+                    try {
+                        copy_board.move(positions, player);
+                        if (!copy_board.inCheck(player)) {
+                            return true;
+                        } else {
+                            copy_board = board;
+                        }
+                    } catch (IOException e) {
+                        copy_board = board;
+                    }
+            }
+        }
+
+
+        //try move king to avoid
+        copy_board = board;
+
+        int kingX = board.getKingPos(player)/10;
+        int kingY = board.getKingPos(player)%10;
+
+        positions[0] = kingX;
+        positions[1] = kingY;
+
+        for(int i = kingX-1; i <= kingX+1; i++){
+            for(int j = kingY-1; j <= kingY+1; j++){
+                positions[2] =i;
+                positions[3] = j;
+
+                if(spots[kingX][kingY].check_valid_move(spots,
+                        kingX, kingY, i, j))
+                    try {
+                        copy_board.move(positions, player);
+                        if(!copy_board.inCheck(player)){
+                            return true;
+                        }else{
+                            copy_board = board;
+                        }
+                    }catch (IOException e){
+                        copy_board = board;
+                    }
+            }
+        }
+
+        //try block in middle
+        copy_board = board;
+        int checkingY, checkingX;
+
+        for (int aCheckingPiece : checkingPiece) {
+            for (int j = 0; j < pieceList.length; j++) {
+
+                positions[0] = pieceList[j] / 10; //my x
+                positions[1] = pieceList[j] % 10; //my y
+
+                checkingX = aCheckingPiece / 10; // threatening piece x
+                checkingY = aCheckingPiece % 10; // threatening piece y
+
+                positions[2] = checkingX;
+                positions[3] = checkingY;
+
+                String name = spots[positions[2]][positions[3]].getName();
+                if (!name.equals("P") && !name.equals("N")) {
+                    //same rank or file
+                    if (positions[0] == positions[2]) {
+                        //find y
+
+                        //from king to threatening piece
+                        TryInsert tryInsert = new TryInsert(player, board, copy_board, spots, positions, kingY, checkingY).invoke();
+                        if (tryInsert.is()) return true;
+                        copy_board = tryInsert.getCopy_board();
+
+                    } else if (positions[1] == positions[3]) {
+                        //find x
+
+                        //from king to threatening piece
+                        TryInsert tryInsert = new TryInsert(player, board, copy_board, spots, positions, kingX, checkingX).invoke();
+                        if (tryInsert.is()) return true;
+                        copy_board = tryInsert.getCopy_board();
+
+                        /*for (int k = Math.min(kingX, checkingX); k < Math.max(kingX, checkingX); k++) {
+                            positions[2] = k;  //destX
+
+                            if (spots[positions[0]][positions[1]].check_valid_move(spots,
+                                    positions[0], positions[1], k, positions[1])) {
+                                //try every k between
+                                try {
+                                    copy_board.move(positions, player);
+                                    if (!copy_board.inCheck(player)) {
+                                        return true;
+                                    } else {
+                                        copy_board = board;
+                                    }
+                                } catch (IOException e) {
+                                    copy_board = board;
+                                }
+
+                            }
+                        }*/
+                    } else {
+                        //find diagonal
+
+                        //from king to threatening piece
+                        int l = Math.min(kingY, checkingY);
+                        for (int k = Math.min(kingX, checkingX); k < Math.max(kingX, checkingX); k++) {
+                            positions[2] = k;  //destX
+                            positions[3] = l;  //destY
+
+                            if (spots[positions[0]][positions[1]].check_valid_move(spots,
+                                    positions[0], positions[1], k, l)) {
+                                //try every k between
+                                try {
+                                    copy_board.move(positions, player);
+                                    if (!copy_board.inCheck(player)) {
+                                        return true;
+                                    } else {
+                                        copy_board = board;
+                                    }
+                                } catch (IOException e) {
+                                    copy_board = board;
+                                }
+
+                            }
+                            j += 1;
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return false;
+    }
+
+    private static boolean inStalemate(Board board, Player player){
+        if (board.inCheck(player)) {
+            return false;
+        }
+
+        //try legal move
+        Piece[][] spots = board.getspots();
+        int myPieceX, myPieceY;
+        int[] playerList = board.getplayerlist(player);
+
+        for (int aPlayerList : playerList) {
+            if (aPlayerList >= 0) {
+                myPieceX = aPlayerList / 10;
+                myPieceY = aPlayerList % 10;
+                //Check this piece against every other piece...
+
+                for (int j = 0; j < 8; j++) {
+                    for (int k = 0; k < 8; k++) {
+                        if (spots[myPieceX][myPieceY].check_valid_move(spots,
+                                myPieceX, myPieceY, j, k)) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
+    private static class TryInsert {
+        private boolean myResult;
+        private Player player;
+        private Board board;
+        private Board copy_board;
+        private Piece[][] spots;
+        private int[] positions;
+        private int kingY;
+        private int checkingY;
+
+        public TryInsert(Player player, Board board, Board copy_board, Piece[][] spots, int[] positions, int kingY, int checkingY) {
+            this.player = player;
+            this.board = board;
+            this.copy_board = copy_board;
+            this.spots = spots;
+            this.positions = positions;
+            this.kingY = kingY;
+            this.checkingY = checkingY;
+        }
+
+        boolean is() {
+            return myResult;
+        }
+
+        public Board getCopy_board() {
+            return copy_board;
+        }
+
+        public TryInsert invoke() {
+            for (int k = Math.min(kingY, checkingY); k < Math.max(kingY, checkingY); k++) {
+                positions[3] = k;  //destY
+
+                if (spots[positions[0]][positions[1]].check_valid_move(spots,
+                        positions[0], positions[1], positions[0], k)) {
+                    //try every k between
+                    try {
+                        copy_board.move(positions, player);
+                        if (!copy_board.inCheck(player)) {
+                            myResult = true;
+                            return this;
+                        } else {
+                            copy_board = board;
+                        }
+                    } catch (IOException e) {
+                        copy_board = board;
+                    }
+
+                }
+            }
+            myResult = false;
+            return this;
+        }
+    }
+}

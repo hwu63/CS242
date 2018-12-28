@@ -1,0 +1,25 @@
+import java.util.Vector;
+
+public class Player {
+    private String color;
+    private boolean alive;
+    private boolean moved;
+
+
+    public Player(String color){
+        this.color = color;
+        alive = true;
+        moved = false;
+    }
+
+    public void setMove(boolean moved){
+        this.moved = moved;
+    }
+
+    public boolean IsWhite() {
+        if (this.color == "White")
+            return true;
+        return false;
+    }
+
+}
