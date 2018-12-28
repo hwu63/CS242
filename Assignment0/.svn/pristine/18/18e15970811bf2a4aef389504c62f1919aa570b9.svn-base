@@ -1,0 +1,92 @@
+
+
+metadata_t *p = (metadata_t *)ptr - 1;
+	if(p == head){
+		head = head->next;
+		if (head){
+			head->prev = NULL;
+		}
+	}
+		
+		p->fnext = fhead;
+		fhead = p;
+		p->free = 1;
+		if(p->prev){
+			(p->prev)->next = p->next;
+		}
+		if(p->next){
+			(p->next)->prev = p->prev;
+		}
+			
+		p->next = NULL;
+		p->prev = NULL;
+
+
+	/*metadata_t * des = ptr-sizeof(metadata_t);
+		//printf("deshere: %p\n", ptr);
+	des->free = 1;
+	
+	if(!fhead) {
+		fhead = des; des->fnext = NULL; 
+		//printf("head whole block is %p, size: %d, free:%d\n", des->ptr, des->size, des->free);
+		return;
+	}
+
+
+	if(des == head){
+		//printf("des==head\n");
+		head = head->next;
+		des->fnext=fhead;
+		des = fhead;
+		if (head){
+			head->prev = NULL;
+		}
+		return;
+	}
+	metadata_t * prev = des->prev;
+	metadata_t * next = des->next;
+	if(next && prev){
+		if(next->free == 0 && prev->free == 0){
+			//printf("nofree\n");
+			des ->fnext = fhead;
+			fhead = des;
+		}}
+	if(next){
+		if(next->free==1){
+				//printf("nextfree\n");
+			next->size = next->size+des->size+ (int)sizeof(metadata_t);
+			next->end  = des->end;
+			next->prev = des->prev;
+			if(des->prev)des->prev->next = next;
+		}
+	}
+	if(prev){
+		if(prev->free==1){
+			//	printf("prevfree\n");
+			des->size = des->size+ prev->size+ (int)sizeof(metadata_t);
+			des->end = prev->end;
+			des->prev = prev->prev;
+			if(des->prev)des->prev->next = des;
+			if(head == prev){head = des;}
+			if(fhead == prev){fhead = des;}
+			//printf("prevfree end\n");
+		}
+	}*/
+
+		/////////////////////print
+	/*	metadata_t * p= head;
+	int i=0;
+	while(p){
+		//printf("%dth whole block is %p, size: %d, free:%d\n", i, p->ptr, p->size, p->free);
+		i++;
+	 p=p->next;
+	}
+	
+	p= fhead;
+	i=0;
+	while(p){
+		//printf("%dth free block is %p, size: %d\n", i, p->ptr, p->size);
+		i++;
+	 p=p->fnext;
+	}
+*/	///////////////////print
