@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:id="@+id/post_view"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/list_of_messages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/fab"
+        android:layout_alignParentStart="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"
+        android:layout_below="@+id/questopn_title_content" />
+
+    <android.support.design.widget.FloatingActionButton
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:src="@drawable/ic_send_black_48dp"
+    android:id="@+id/fab"
+    android:tint="@android:color/white"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentEnd="true"
+    app:fabSize="mini" />
+
+    <android.support.design.widget.TextInputLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:id="@+id/textInputLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+    <EditText
+        android:layout_width="296dp"
+        android:layout_height="wrap_content"
+        android:hint="Comment"
+        android:id="@+id/input"
+        />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <RelativeLayout android:layout_height="wrap_content" android:layout_width="match_parent"
+        android:id="@+id/questopn_title_content">
+
+        <TextView
+        android:id="@+id/question_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="22dp"
+        android:textAlignment="viewStart"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:text="@string/q_title"/>
+
+    <TextView
+        android:id="@+id/question_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/question_title"
+        android:layout_below="@+id/question_title"
+        android:layout_marginTop="22dp"
+        android:textSize="20sp"
+        android:text="@string/q_content"/>
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/add_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:tint="@android:color/white"
+        android:background="@android:color/holo_purple"
+        android:layout_below="@+id/list_of_messages"
+        android:layout_toEndOf="@+id/textInputLayout"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

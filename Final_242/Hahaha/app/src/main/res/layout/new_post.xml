@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tw__solid_white">
+
+    <TextView
+        android:id="@+id/New_Post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="22dp"
+        android:text="Add New Post"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/post_title"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/New_Post"
+        android:layout_below="@+id/New_Post"
+        android:layout_marginTop="19dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="textEmailSubject"
+        android:textAlignment="viewStart"
+        android:textAllCaps="true"
+        android:textColor="@color/tw__composer_black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/post_content"
+        android:layout_width="325dp"
+        android:layout_height="400dp"
+        android:layout_alignStart="@+id/post_title"
+        android:layout_below="@+id/post_title"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:hint="Contents"
+        android:inputType="textMultiLine"
+        android:textAlignment="viewStart"
+        android:textColor="@color/tw__composer_black"
+        android:textSize="18sp"
+        android:visibility="visible" />
+
+    <Button
+        android:id="@+id/post_publish"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/post_title"
+        android:layout_alignEnd="@+id/post_title"
+        android:background="@color/com_facebook_blue"
+        android:text="Publish"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

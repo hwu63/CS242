@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="200dp"
+    android:background="@color/tw__solid_white">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/urlLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp">
+
+        <EditText
+            android:id="@+id/send_img_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="30dp"
+            android:hint="Image Url"
+            android:longClickable="true"
+            android:textColor="@color/tw__composer_black"
+            android:textColorHint="@color/tw__composer_deep_gray"
+            android:textIsSelectable="true"
+            android:textSize="22sp"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/paste"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:text="Paste"
+        android:textAllCaps="false"
+        android:textColor="@color/authui_colorPrimary"
+        android:layout_alignBaseline="@+id/send_img"
+        android:layout_alignBottom="@+id/send_img"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/send_img"
+        style="@style/com_facebook_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/urlLayout"
+        android:layout_below="@+id/urlLayout"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/authui_colorPrimary"
+        android:text="Send"
+        android:textAllCaps="false" />
+
+</RelativeLayout>
